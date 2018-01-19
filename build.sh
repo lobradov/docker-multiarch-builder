@@ -2,6 +2,9 @@
 #
 # Run this to build, tag and create fat-manifest for your images
 
+set -e
+
+
 for docker_arch in amd64 arm32v6 arm64v8; do
   case ${docker_arch} in
     amd64   ) qemu_arch="x86_64" ;;
@@ -16,6 +19,6 @@ for docker_arch in amd64 arm32v6 arm64v8; do
   else
     sed -i "" "s/__CROSS_//g" Dockerfile.${docker_arch}
   fi
-  docker build -f Dockerfile.${arch} -t yourrepo/nginx:${arch}-latest .
-  docker push yourrepo/nginx:${arch}-latest
+  docker build -f Dockerfile.${arch} -t ${REPO}/${IMAGE_NAME}:${arch}-${IMAGE_VERSION} .
+  docker push ${REPO}/${IMAGE_NAME}:${arch}-${IMAGE_VERSION}
 done
