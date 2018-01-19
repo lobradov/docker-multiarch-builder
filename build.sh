@@ -4,6 +4,11 @@
 
 set -e
 
+if [[ -f build.config ]]; then
+  source ./build.config
+fi
+
+# Fail on empty params
 
 for docker_arch in amd64 arm32v6 arm64v8; do
   case ${docker_arch} in

@@ -2,11 +2,8 @@
 #
 # Run this to prepare and initialize new Docker image build repo
 
-if [[ -f build.config ]]; then
-  source ./build.config
-fi
-
-# Fail on empty params
+QEMU_VERSION="v2.9.1-1"
+BUILD_ARCHS="x86_64 aarch64 arm"
 
 # -----
 set -e
