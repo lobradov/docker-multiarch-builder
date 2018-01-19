@@ -24,6 +24,8 @@ for docker_arch in amd64 arm32v6 arm64v8; do
   else
     sed -i "" "s/__CROSS_//g" Dockerfile.${docker_arch}
   fi
-  docker build -f Dockerfile.${arch} -t ${REPO}/${IMAGE_NAME}:${arch}-${IMAGE_VERSION} .
-  docker push ${REPO}/${IMAGE_NAME}:${arch}-${IMAGE_VERSION}
+  docker build -f Dockerfile.${docker_arch} -t ${REPO}/${IMAGE_NAME}:${docker_arch}-${IMAGE_VERSION} .
+  docker push ${REPO}/${IMAGE_NAME}:${docker_arch}-${IMAGE_VERSION}
 done
+
+# TBD: create, annotate and push fat manifest
