@@ -33,3 +33,10 @@ Build configuration is in `build.config` in your project directory. It has numbe
 Naturally, you should also edit your `Dockerfile.cross` and put meaningful build instructions. Just make sure __CROSS_COPY is placed before any RUN.
 
 Keep `__BASEIMAGE_ARCH__`, `__CROSS_COPY` and `__QEMU_ARCH__` placeholder, as they are used to generate temporary Dockerfiles for each of the build architectures.
+
+To actually build, tag images and push all of them + fat manifest to repository:
+```
+cd /usr/src/docker-project-name
+./build.sh
+```
+(NOTE: You need to be logged in to the repository)
