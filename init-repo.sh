@@ -44,3 +44,6 @@ cp build.sh $1
 if [[ ! -f $1/build.config ]]; then
   cp build.config $1
 fi
+
+echo "build.sh" >> $1/.gitignore
+echo "build.config" >> $1/.gitignore
