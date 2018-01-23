@@ -12,6 +12,7 @@ if [[ ! -d $1 && ! -w $1 ]]; then
   echo ERROR: Please supply a valid, writeable directory path.
   echo ERROR: for example:
   echo ERROR: $0 /usr/src/docker-something
+  exit 1
 fi
 
 if [[ $(uname -m) != "x86_64" ]]; then
