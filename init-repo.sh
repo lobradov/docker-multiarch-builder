@@ -25,7 +25,7 @@ if [[ $(uname -m) != "x86_64" ]]; then
 fi
 
 if [[ $(uname -s) != "Darwin" ]]; then
-  mkdir -p ${ABS_ROOT}/qemu ${ABS_FROM}/qemu
+  mkdir -p ${ABS_DEST}/qemu ${ABS_FROM}/qemu
   for target_arch in ${BUILD_ARCHS}; do
     [[ -f ${ABS_FROM}/qemu/x86_64_qemu-${target_arch}-static.tar.gz ]] || wget -N -P ${ABS_FROM}/qemu https://github.com/multiarch/qemu-user-static/releases/download/${QEMU_VERSION}/x86_64_qemu-${target_arch}-static.tar.gz
     tar -xvf ${ABS_FROM}/qemu/x86_64_qemu-${target_arch}-static.tar.gz -C ${ABS_DEST}
@@ -44,9 +44,9 @@ else
   echo INFO: Dockerfile.cross already exists, skipping
 fi
 cp ${ABS_FROM}/build.sh ${ABS_DEST}
-if [[ ! -f ${ABS_ROOT}/build.config ]]; then
-  cp ${ABS_FROM}/build.config ${ABS_ROOT}
+if [[ ! -f ${ABS_DEST}/build.config ]]; then
+  cp ${ABS_FROM}/build.config ${ABS_DEST}
 fi
 
-[[ fgrep "build.sh" ${ABS_ROOT}/.gitignore ]] && echo "build.sh" >> ${ABS_ROOT}/.gitignore
-[[ fgrep "build.config" ${ABS_ROOT}/.gitignore ]] && echo "build.config" >> ${ABS_ROOT}/.gitignore
+[[ fgrep "build.sh" ${ABS_DEST}/.gitignore ]] && echo "build.sh" >> ${ABS_DEST}/.gitignore
+[[ fgrep "build.config" ${ABS_DEST}/.gitignore ]] && echo "build.config" >> ${ABS_DEST}/.gitignore
