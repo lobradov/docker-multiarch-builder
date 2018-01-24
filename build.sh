@@ -32,8 +32,7 @@ case ${build_uname_arch} in
     ;;
 esac
 
-echo INFO: Looing for docker-${build_os}-${build_arch} in PATH and in ${DOCKER_CLI_PATH%/}
-docker_bin_path=$( type -P docker-${build_os}-${build_arch} ${DOCKER_CLI_PATH%/}/docker-${build_os}-${build_arch})
+docker_bin_path=$( type -P docker-${build_os}-${build_arch} || type -P ${DOCKER_CLI_PATH%/}/docker-${build_os}-${build_arch} || echo docker-not-found )
 
 if [[ ! -x ${docker_bin_path} ]]; then
   echo ERROR: Missing Docker CLI with manifest command \(docker_bin_path: ${docker_bin_path}\)
@@ -54,12 +53,12 @@ for docker_arch in ${TARGET_ARCHES}; do
       exit 1
   esac
   cp Dockerfile.cross Dockerfile.${docker_arch}
-  sed -i "" "s|__BASEIMAGE_ARCH__|${docker_arch}|g" Dockerfile.${docker_arch}
-  sed -i "" "s|__QEMU_ARCH__|${qemu_arch}|g" Dockerfile.${docker_arch}
+  sed -i"" "s|__BASEIMAGE_ARCH__|${docker_arch}|g" Dockerfile.${docker_arch}
+  sed -i"" "s|__QEMU_ARCH__|${qemu_arch}|g" Dockerfile.${docker_arch}
   if [[ ${docker_arch} == "amd64" || ${build_os} == "darwin" ]]; then
-    sed -i "" "/__CROSS_/d" Dockerfile.${docker_arch}
+    sed -i"" "/__CROSS_/d" Dockerfile.${docker_arch}
   else
-    sed -i "" "s/__CROSS_//g" Dockerfile.${docker_arch}
+    sed -i"" "s/__CROSS_//g" Dockerfile.${docker_arch}
   fi
   ${docker_bin_path} build -f Dockerfile.${docker_arch} -t ${REPO}/${IMAGE_NAME}:${docker_arch}-${IMAGE_VERSION} .
   ${docker_bin_path} push ${REPO}/${IMAGE_NAME}:${docker_arch}-${IMAGE_VERSION}
