@@ -48,5 +48,5 @@ if [[ ! -f ${ABS_DEST}/build.config ]]; then
   cp ${ABS_FROM}/build.config ${ABS_DEST}
 fi
 
-[[ fgrep "build.sh" ${ABS_DEST}/.gitignore ]] && echo "build.sh" >> ${ABS_DEST}/.gitignore
-[[ fgrep "build.config" ${ABS_DEST}/.gitignore ]] && echo "build.config" >> ${ABS_DEST}/.gitignore
+[[ $(fgrep -c "build.sh" ${ABS_DEST}/.gitignore) -eq 0 ]] && echo "build.sh" >> ${ABS_DEST}/.gitignore
+[[ $(fgrep -c "build.config" ${ABS_DEST}/.gitignore) -eq 0 ]] && echo "build.config" >> ${ABS_DEST}/.gitignore
