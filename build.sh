@@ -32,7 +32,8 @@ case ${build_uname_arch} in
     ;;
 esac
 
-docker_bin_path=$( type -P docker-${build_os}-${build_arch} ${DOCKER_CLI_PATH%/}/docker-${build_os}-${build_arch} ) || echo "not_found"
+echo INFO: Looing for docker-${build_os}-${build_arch} in PATH and in ${DOCKER_CLI_PATH%/}
+docker_bin_path=$( type -P docker-${build_os}-${build_arch} ${DOCKER_CLI_PATH%/}/docker-${build_os}-${build_arch})
 
 if [[ ! -x ${docker_bin_path} ]]; then
   echo ERROR: Missing Docker CLI with manifest command \(docker_bin_path: ${docker_bin_path}\)
