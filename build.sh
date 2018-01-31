@@ -53,12 +53,12 @@ for docker_arch in ${TARGET_ARCHES}; do
       exit 1
   esac
   cp Dockerfile.cross Dockerfile.${docker_arch}
-  sed -i"" "s|__BASEIMAGE_ARCH__|${docker_arch}|g" Dockerfile.${docker_arch}
-  sed -i"" "s|__QEMU_ARCH__|${qemu_arch}|g" Dockerfile.${docker_arch}
+  sed -i '' "s|__BASEIMAGE_ARCH__|${docker_arch}|g" Dockerfile.${docker_arch}
+  sed -i '' "s|__QEMU_ARCH__|${qemu_arch}|g" Dockerfile.${docker_arch}
   if [[ ${docker_arch} == "amd64" || ${build_os} == "darwin" ]]; then
-    sed -i"" "/__CROSS_/d" Dockerfile.${docker_arch}
+    sed -i '' "/__CROSS_/d" Dockerfile.${docker_arch}
   else
-    sed -i"" "s/__CROSS_//g" Dockerfile.${docker_arch}
+    sed -i '' "s/__CROSS_//g" Dockerfile.${docker_arch}
   fi
   ${docker_bin_path} build -f Dockerfile.${docker_arch} -t ${REPO}/${IMAGE_NAME}:${docker_arch}-${IMAGE_VERSION} .
   ${docker_bin_path} push ${REPO}/${IMAGE_NAME}:${docker_arch}-${IMAGE_VERSION}
