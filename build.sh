@@ -46,7 +46,7 @@ fi
 for docker_arch in ${TARGET_ARCHES}; do
   case ${docker_arch} in
     amd64       ) qemu_arch="x86_64" ;;
-    arm32v[6-7] ) qemu_arch="arm" ;;
+    arm32v[5-7] ) qemu_arch="arm" ;;
     arm64v8     ) qemu_arch="aarch64" ;;
     *)
       echo ERROR: Unknown target arch.
@@ -72,7 +72,7 @@ ${docker_bin_path} manifest create --amend ${REPO}/${IMAGE_NAME}:${IMAGE_VERSION
 for docker_arch in ${TARGET_ARCHES}; do
   case ${docker_arch} in
     amd64       ) annotate_flags="" ;;
-    arm32v[6-7] ) annotate_flags="--os linux --arch arm" ;;
+    arm32v[5-7] ) annotate_flags="--os linux --arch arm" ;;
     arm64v8     ) annotate_flags="--os linux --arch arm64 --variant armv8" ;;
   esac
   echo INFO: Annotating arch: ${docker_arch} with \"${annotate_flags}\"
